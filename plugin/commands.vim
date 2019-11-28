@@ -1,3 +1,5 @@
+" Figure out how to get OS
+
 func! commands#openMacTerminal(...)
     execute "!open -a terminal ~/.vim"
     echo "Testing5"

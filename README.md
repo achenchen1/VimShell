@@ -6,3 +6,7 @@ This plugin will hopefully accomplish the following:
 	* Some location, e.g. ```:vimshell ls /Users/AliceAndBob``` should open another terminal in /Users/AliceAndBob and list the files and directories
 	* Be able to, if the right credentials are available/used, use ```sudo``` or ```as Administrator```
 * Be compatible with Windows and Mac
+
+To do:
+Figure out how to get OS reliably (e.g. Windows, Linux, Mac OS, something else)
+Execute command silently

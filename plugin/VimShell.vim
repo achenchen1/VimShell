@@ -1,2 +1,2 @@
-com! -nargs=*   TestFunction
-\ call test#commands#TestFunction()
+com! -nargs=* -complete=dir VimShell
+\ call commands#openMacTerminal(<f-args>)

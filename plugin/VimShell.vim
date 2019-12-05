@@ -1,2 +1,2 @@
 com! -nargs=* -complete=dir VimShell
-\ call commands#openMacTerminal(<f-args>)
+\ call commands#openTerminal(<f-args>)

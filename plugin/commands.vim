@@ -1,10 +1,21 @@
 " Figure out how to get OS
 
+func! commands#openTerminal(...)
+    let g:os = commands#getOSInfo()
+    if g:os == "Linux"
+        execute "! open -a terminal" 
+        " need to investigate if this is actually right
+    elseif g:os == "Darwin"
+        execute "! open -a terminal"
+    elseif g:os == "Windows"
+        execute "! start cmd"  
+    else
+        echo g:os
+    endif
+endf
+
 func! commands#openMacTerminal(...)
     execute "!open -a terminal ~"
-    let g:os = commands#getOSInfo()
-    echo g:os
-    call commands#testfunc()
     for x in a:000
 	    echo x
     endfor
@@ -12,21 +23,17 @@ func! commands#openMacTerminal(...)
 endf
 
 func! commands#getOSInfo()
-    let output = system("uname")
-    if output =~ "Linux"
+    let l:output = system("uname")
+    if l:output =~ "Linux"
 	    return "Linux"
     elseif output =~ "Darwin"
         return "macOS"
     else
-        output = system("ver")
-        if output =~ "Windows"
+        let l:output = system("ver")
+        if l:output =~ "Windows"
             return "Windows"
         else
-            throw
+            return "OS not recognized"
         endif
     endif
-endf
-
-func! commands#testfunc()
-    echo g:os
 endf

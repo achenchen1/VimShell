@@ -1,14 +1,13 @@
 " Figure out how to get OS
-
 func! commands#openTerminal(...)
     let g:os = commands#getOSInfo()
     if g:os == "Linux"
-        execute "! open -a terminal" 
-        " need to investigate if this is actually right
+        echo "Need to investigate"
+	" need to investigate if this is actually right
     elseif g:os == "Darwin"
-        execute "! open -a terminal"
+        call commands#openMacTerminal(...)
     elseif g:os == "Windows"
-        execute "! start cmd"  
+        call commands#openWindowsTerminal(...) 
     else
         echo g:os
     endif
@@ -20,6 +19,10 @@ func! commands#openMacTerminal(...)
 	    echo x
     endfor
     echo a:0
+endf
+
+func! commands#openWindowsTerminal(...)
+    execute "start"
 endf
 
 func! commands#getOSInfo()
@@ -36,4 +39,21 @@ func! commands#getOSInfo()
             return "OS not recognized"
         endif
     endif
+endf
+
+" Just for testing and fiddling around
+func! commands#openTest(...)
+    " This is how I can pass optional stuff into another f unction - call.
+    let g:testfunc = call(function('commands#callTest'), a:000)
+    echo g:testfunc
+endf
+
+func! commands#callTest(...)
+    for arg in a:000
+	echo arg
+    endfor
+    " Hopefully I'll be able to use this to put the intended execution
+    " directory at the end, and just get the last argument.
+    echo get(a:, a:0)
+    return "Hello world"
 endf

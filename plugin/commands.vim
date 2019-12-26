@@ -1,24 +1,50 @@
 " Figure out how to get OS
 func! commands#openTerminal(...)
+    let g:dir_specified = 0
+    let g:admin = 0 
+    let g:exit = 0
+
     let g:os = commands#getOSInfo()
+
+    let l:command_string = commands#parseArgString(...)
+
     if g:os == "Linux"
         echo "Need to investigate"
 	" need to investigate if this is actually right
     elseif g:os == "Darwin"
-        call commands#openMacTerminal(...)
+        call commands#openMacTerminal(l:command_string)
     elseif g:os == "Windows"
-        call commands#openWindowsTerminal(...) 
+        call commands#openWindowsTerminal(l:command_string) 
     else
         echo g:os
     endif
 endf
 
-func! commands#openMacTerminal(...)
-    execute "!open -a terminal ~"
-    for x in a:000
-	    echo x
+func! commands#parseArgString(...)
+    for arg in a:000
+	if arg == "--dir" || x == "-d"
+	    if g:dir_specified
+		" Should navigate to directory
+		let l:dir = commands#findDirectory(arg+1)
+		" Figure out how to access 'next' argument	
+	    else
+		echo "Directory already specified to"
+		" Find out if this will auto-insert a new line, and if so,
+		" string replacement.
+	    endif
+	elseif 
+	    arg == "--admin" || arg == "-a"
+	    let g:admin = 1
+	elseif
+	    arg == "--exit" || arg == "-x"
+	else
+	    " pass?
+	endif
     endfor
-    echo a:0
+endf
+
+func! commands#openMacTerminal(...)
+    l:command = "!open -a terminal ~"
 endf
 
 func! commands#openWindowsTerminal(...)
